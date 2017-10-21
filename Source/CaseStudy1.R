@@ -21,11 +21,7 @@ library(tidyr)
 library(ggplot2)
 
 # set directories for Base, Data, Source, and Paper
-<<<<<<< HEAD:Source/CaseStudy1.R
 BaseDir <- "C:/Vivek/Data_Science/MSDS6306-DoingDataScience/CaseStudy1/MSDS6306-Unit6-CaseStudy/"
-=======
-BaseDir <- "C:\\Users\\mendkev\\Documents\\SMU\\MSDS6306_Woo\\CaseStudy1\\"
->>>>>>> c960d8fe09f322b821c305c278695f5fec2be895:Source/CaseStudy1.R
 DataDir <- paste(BaseDir,"Data", sep = "/")
 SourceDir <- paste(BaseDir,"Source", sep = "/")
 PaperDir <- paste(BaseDir,"Paper", sep = "/")
