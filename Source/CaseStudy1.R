@@ -6,11 +6,11 @@
 sessionInfo()
 
 #install packages required
-install.packages("tidyverse")
-install.packages("repmis")
-install.packages("dplyr")
-install.packages("tidyr")
-install.packages("ggplot2")
+# install.packages("tidyverse")
+# install.packages("repmis")
+# install.packages("dplyr")
+# install.packages("tidyr")
+# install.packages("ggplot2")
 
 # Load libraries required
 
@@ -21,7 +21,7 @@ library(tidyr)
 library(ggplot2)
 
 # set directories for Base, Data, Source, and Paper
-BaseDir <- "C:\\Users\\mendkev\\Documents\\SMU\\MSDS6306_Woo\\week6\\Project\\"
+BaseDir <- "C:/Vivek/Data_Science/MSDS6306-DoingDataScience/CaseStudy1/MSDS6306-Unit6-CaseStudy/"
 DataDir <- paste(BaseDir,"Data", sep = "/")
 SourceDir <- paste(BaseDir,"Source", sep = "/")
 PaperDir <- paste(BaseDir,"Paper", sep = "/")
@@ -81,11 +81,11 @@ GDPDatawoRegion <- select(GDPDatawoRegion, CountryCode, Ranking, Long.Name, GDPi
 
 CombinedGDPFullCountry <- merge(GDPDataFull, CountryData, by = c("CountryCode"))
 
-# 224 IDs match on the Merged Data when GDP File included the Region Information.
+# 224 IDs match on the Merged Data when GDP File including the Region Information.
 
 CombinedGDPwoRegionCountry <- merge(GDPDatawoRegion, CountryData, by = c("CountryCode"))
 
-# 210 IDs match on the Merged Data when GDP File included the Region Information.
+# 210 IDs match on the Merged Data when GDP File excluding the Region Information.
 
 #Q2. Sort the data frame in ascending order by GDP (so United States is last). What is the 13th country in the resulting data frame?
 # Sort Combined Data by GDPinMillionsofDollars
@@ -109,22 +109,36 @@ select(CombinedGDPFullCountry, Income.Group, GDPinMillionsofDollars) %>%
 
 ggplot(data=CombinedGDPwoRegionCountry, mapping = aes(x=CountryCode, y=GDPinMillionsofDollars)) +
   geom_point(mapping = aes(color =Income.Group)) +
-  theme(axis.text.x=element_text(angle=90,hjust=1)) 
-  
+  theme(
+        axis.text.x = element_blank(),
+        axis.text.y = element_text()
+       )
 
 #Q5:	Cut the GDP ranking into 5 separate quantile groups. Make a table versus Income.Group. 
 #     How many countries are Lower middle income but among the 38 nations with highest GDP?
 
 summary(CombinedGDPwoRegionCountry$Ranking)
 
+
 count(filter(CombinedGDPwoRegionCountry, Ranking > 143 & Income.Group =='Lower middle income'))
 
-# There are 17 countries that are among the 38 natios with the highest GDP but are in the Lower 
+# There are 17 countries that are among the 38 nations with the highest GDP but are in the Lower 
 # middle income category.
 
+#Make a table of of GDP ranking, country and Income.Group
 
-
-
+tblIncomeGrp <- select(CombinedGDPFullCountry, Long.Name.x, Ranking, Income.Group) %>%
+                      filter(!is.na(Income.Group)) %>% # filter NAs in the Income.Group field
+                      arrange(
+                             IncomeGrpCat = case_when(
+                                                      Income.Group == "High income: OECD"    ~ 1,
+                                                      Income.Group == "High income: nonOECD" ~ 2,
+                                                      Income.Group == "Upper middle income"  ~ 3,
+                                                      Income.Group == "Lower middle income"  ~ 4,
+                                                      Income.Group == "Low income"           ~ 5,
+                                                     ) # using a case statement set the correct order for Income.Group
+                             ,Ranking, Long.Name.x) %>% # arrange the dataset by thge new IncomeGrpCat field
+                      print() # print the data 
 
 
 
