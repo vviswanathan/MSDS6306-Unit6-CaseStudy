@@ -14,7 +14,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Analysis of Global GDP data for 2012
 
-The introduction should not start with "For my project I .". The introduction needs to be written as if you are presenting the work to someone who has given you the data to analyze and wants to understand the result. In other words, pretend it's not a case study for a course. Pretend it's a presentation for a client.
+Introduction
+Gross Domestic Product (GDP) has become a universal reference point for the health of national and global economies.  It measures the monetary value of final goods and services produced in a country in a given period of time.  Some elements used for statistical measure include but not limited, to country codes, income, regions, lending categories, and currency. In efforts to evaluate GDP rankings, quantiles and/or any correlations between the Income Groups defined by the World Bank EdStats data, we explored the 2012 GDP data from http://data.worldbank.org/data-catalog/GDP-ranking-table and http://data.worldbank.org/data-catalog/ed-stats
 
 ## R - environment
 
@@ -190,5 +191,6 @@ count(filter(CombinedGDPwoRegionCountry, Ranking > 143 & Income.Group =='Lower m
 
 ## There are 17 countries among the 38 nations with the Highest GDP, but in the Lower middle income category.
 
-
+Conclusion
+Upon downloading the data, running R codes in R Studio and creating R markdown files, we found that 224 countries with matched IDs also included regional data whereas 210 countries with matched IDs did not. Interesting enough, with or without regional information, both St. Kitts and Nevis were found to be the 13th country for both data frames. In our analysis, we also found that the difference for the average GDP of high income with OECD($1,483,917.13) vs nonOECD ($104,349.83) was $44,047.47.  When plotting the GDP for all of the countries, we removed 21 rows that contained missing values.  As a result of our analysis, we found 17 countries to be among the 38 nations with the Highest GDP, but in the Lower middle income category.  In conclusion, this was an observational exploration and no causal effect could be inferenced. 
 
